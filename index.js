@@ -4,6 +4,10 @@ const { chromium } = require('playwright');
 const app = express();
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Playwright API running 🚀");
+});
+
 app.get('/check-connection-status', async (req, res) => {
   res.json({ is_first_connection: true });
 });
