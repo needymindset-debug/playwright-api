@@ -21,7 +21,24 @@ app.post('/send-connection-request', async (req, res) => {
 });
 
 app.post('/send-linkedin-message', async (req, res) => {
-  res.json({ success: true });
+  try {
+    const browser = await chromium.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
+    const page = await browser.newPage();
+    await page.goto('https://example.com');
+
+    const title = await page.title();
+
+    await browser.close();
+
+    res.json({ success: true, pageTitle: title });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
