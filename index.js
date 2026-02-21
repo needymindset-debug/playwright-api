@@ -41,7 +41,7 @@ app.post('/send-linkedin-message', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Playwright API listening on port ${PORT}`);
 });
