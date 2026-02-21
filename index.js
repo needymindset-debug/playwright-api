@@ -44,3 +44,24 @@ app.post('/send-linkedin-message', async (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Playwright API listening on port ${PORT}`));
+
+// Test du navigateur Playwright
+
+app.get('/test-browser', async (req, res) => {
+  try {
+    const browser = await chromium.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    const page = await browser.newPage();
+    await page.goto('https://example.com');
+    const title = await page.title();
+    await browser.close();
+    res.json({ title });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
